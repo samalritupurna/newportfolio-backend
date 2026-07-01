@@ -110,6 +110,17 @@ app.get("/api/messages", verifyToken, (req, res) => {
     });
 });
 
+// Global error handler
+app.use((err, req, res, next) => {
+    console.error("Global Error Handler caught:", err);
+    res.status(500).json({
+        success: false,
+        message: "Internal Error Debug",
+        error_message: err.message,
+        stack: err.stack
+    });
+});
+
 // Start Server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
