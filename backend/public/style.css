@@ -1,14 +1,14 @@
 :root {
-    --primary-bg: #F8FAFC;
-    --secondary-bg: #FFFFFF;
-    --card-bg: rgba(255, 255, 255, 0.85);
-    --card-border: rgba(0, 0, 0, 0.05);
-    --primary-text: #0F172A;
-    --secondary-text: #475569;
-    --accent-start: #3B82F6;
-    --accent-mid: #4F46E5;
-    --accent-end: #6366F1;
-    --glow-color: rgba(79, 70, 229, 0.15);
+    --primary-bg: #030014; /* Deep space dark */
+    --secondary-bg: #0A0F24;
+    --card-bg: rgba(10, 15, 36, 0.4); /* Glassmorphism dark */
+    --card-border: rgba(255, 255, 255, 0.08);
+    --primary-text: #F1F5F9;
+    --secondary-text: #94A3B8;
+    --accent-start: #00F0FF; /* Neon Cyan */
+    --accent-mid: #7000FF; /* Neon Purple */
+    --accent-end: #FF003C; /* Neon Magenta/Red */
+    --glow-color: rgba(0, 240, 255, 0.2);
     --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -19,14 +19,14 @@
 }
 
 body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     background-color: var(--primary-bg);
     color: var(--primary-text);
     line-height: 1.6;
     overflow-x: hidden;
 }
 
-/* Background Mesh & Blobs */
+/* Background Mesh, Stars, & Aurora */
 .bg-mesh {
     position: fixed;
     top: 0;
@@ -35,8 +35,39 @@ body {
     height: 100vh;
     z-index: -1;
     overflow: hidden;
-    background: radial-gradient(circle at top right, rgba(139, 92, 246, 0.05), transparent 40%),
-                radial-gradient(circle at bottom left, rgba(6, 182, 212, 0.05), transparent 40%);
+    background-color: var(--primary-bg);
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(0, 240, 255, 0.08), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(112, 0, 255, 0.08), transparent 25%);
+}
+
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: transparent url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMC41IiBmaWxsPSIjRkZGRkZGIiBvcGFjaXR5PSIwLjMiLz48L3N2Zz4=') repeat;
+    animation: drift 60s linear infinite;
+    opacity: 0.5;
+}
+
+@keyframes drift {
+    from { background-position: 0 0; }
+    to { background-position: -1000px 1000px; }
+}
+
+.aurora {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg at 50% 50%, rgba(0, 240, 255, 0.05) 0deg, rgba(112, 0, 255, 0.05) 120deg, rgba(255, 0, 60, 0.05) 240deg, rgba(0, 240, 255, 0.05) 360deg);
+    animation: spin 30s linear infinite;
+    filter: blur(80px);
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
 }
 
 .bg-blob {

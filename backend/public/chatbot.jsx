@@ -1,8 +1,8 @@
 const { useState, useEffect, useRef } = React;
 
 const MODELS = [
-    { id: "mistralai/mistral-7b-instruct:free", name: "Mistral 7B (Free)" },
-    { id: "google/gemini-2.5-flash", name: "Gemini 2.5 Flash" },
+    { id: "google/gemini-2.5-pro:free", name: "Gemini 2.5 Pro (Free)" },
+    { id: "google/gemma-2-9b-it:free", name: "Gemma 2 9B (Free)" },
     { id: "meta-llama/llama-3.1-8b-instruct:free", name: "Llama 3.1 8B (Free)" },
     { id: "openai/gpt-4o", name: "GPT-4o (Premium)" },
     { id: "anthropic/claude-3-haiku", name: "Claude 3 Haiku (Premium)" }
@@ -86,7 +86,13 @@ function Chatbot() {
             }
         } catch (error) {
             console.error('Chat error:', error);
-            setMessages(prev => [...prev, { role: 'assistant', content: `Oops! Something went wrong: ${error.message}. Please try again later.`, timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}), isError: true }]);
+            setMessages(prev => [...prev, { 
+                role: 'assistant', 
+                content: `Oops! Something went wrong: ${error.message}. Please try again.`, 
+                timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}), 
+                isError: true,
+                originalText: trimmedText
+            }]);
         } finally {
             setIsLoading(false);
             if (inputRef.current) inputRef.current.focus();
@@ -151,6 +157,9 @@ function Chatbot() {
                                         <span className="timestamp">{msg.timestamp}</span>
                                         {msg.role === 'assistant' && !msg.isError && (
                                             <button className="copy-btn" onClick={() => copyText(msg.content)} title="Copy Response">📋</button>
+                                        )}
+                                        {msg.role === 'assistant' && msg.isError && msg.originalText && (
+                                            <button className="copy-btn" style={{color: 'var(--accent-start)'}} onClick={() => handleSend(msg.originalText)} title="Retry Message">🔄 Retry</button>
                                         )}
                                     </div>
                                 </div>
