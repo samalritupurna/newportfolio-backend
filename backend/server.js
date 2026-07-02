@@ -120,30 +120,37 @@ app.get("/api/messages", verifyToken, (req, res) => {
 function getLocalFallbackResponse(messages) {
     const lastMsg = messages[messages.length - 1].content.toLowerCase();
     
-    if (lastMsg.includes("about") || lastMsg.includes("who are you")) {
+    // Strict rejection for common out-of-bounds topics
+    const outOfBoundsWords = ["food", "eat", "recipe", "weather", "movie", "song", "music", "joke", "game", "play", "sports", "hobby", "fun"];
+    if (outOfBoundsWords.some(word => lastMsg.includes(word))) {
+        return "I am specialized in answering questions about Ritupurna's professional portfolio, skills, experience, and projects. Please feel free to ask me anything related to her career!";
+    }
+
+    if (lastMsg.includes("who are you") || lastMsg.includes("about yourself") || lastMsg.includes("about ritupurna") || lastMsg === "tell me about yourself") {
         return "I am Ritupurna Samal, a Web Developer & AI/ML Enthusiast based in Bhubaneswar. I am currently pursuing my MCA and am passionate about software architecture and AI.";
     }
-    if (lastMsg.includes("skill") || lastMsg.includes("technolog") || lastMsg.includes("know")) {
+    if (lastMsg.includes("skill") || lastMsg.includes("technolog") || lastMsg.includes("know") || lastMsg.includes("language")) {
         return "My technical skills include Java, C, Python, C++, HTML, and Database Management. I'm actively expanding my knowledge in AI and Machine Learning.";
     }
-    if (lastMsg.includes("project") || lastMsg.includes("built")) {
+    if (lastMsg.includes("project") || lastMsg.includes("built") || lastMsg.includes("made")) {
         return "While my specific portfolio projects are currently being updated on this site, I have strong hands-on skills in Web Development and am actively contributing to real-world AI/ML solutions.";
     }
-    if (lastMsg.includes("education") || lastMsg.includes("degree") || lastMsg.includes("college")) {
+    if (lastMsg.includes("education") || lastMsg.includes("degree") || lastMsg.includes("college") || lastMsg.includes("study") || lastMsg.includes("university")) {
         return "I am currently pursuing a Master of Computer Applications (MCA) at GITA Autonomous College. I previously completed my BCA at NC Autonomous College (2022-2025) with an 8.87 CGPA.";
     }
-    if (lastMsg.includes("experience") || lastMsg.includes("work") || lastMsg.includes("intern")) {
+    if (lastMsg.includes("experience") || lastMsg.includes("work") || lastMsg.includes("intern") || lastMsg.includes("job")) {
         return "I am currently a Junior Developer Intern (AI/ML) at Infophy Technology Pvt. Ltd., where I am gaining practical, hands-on experience in the tech industry.";
     }
-    if (lastMsg.includes("contact") || lastMsg.includes("email") || lastMsg.includes("phone")) {
+    if (lastMsg.includes("contact") || lastMsg.includes("email") || lastMsg.includes("phone") || lastMsg.includes("reach")) {
         return "You can easily reach me via email at samalritupurna201@gmail.com, or give me a call at 8144187710. You can also connect with me on LinkedIn!";
     }
-    if (lastMsg.includes("resume") || lastMsg.includes("cv")) {
+    if (lastMsg.includes("resume") || lastMsg.includes("cv") || lastMsg.includes("download")) {
         return "You can download my full resume by clicking the 'Download Resume' button located right on the main page of my portfolio.";
     }
     if (lastMsg.includes("certification") || lastMsg.includes("certificate")) {
         return "I am constantly learning and upgrading my skills through my MCA program and my AI/ML internship.";
     }
+    
     return "I am specialized in answering questions about Ritupurna's professional portfolio, skills, experience, and projects. Please feel free to ask me anything related to her career!";
 }
 
