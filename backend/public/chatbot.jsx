@@ -122,7 +122,7 @@ function Chatbot() {
                 <div className="chat-window glass">
                     <div className="chat-header">
                         <div className="header-info">
-                            <div className="bot-avatar">🤖</div>
+                            <img src="ai_avatar.png" alt="AI Avatar" className="bot-avatar" />
                             <div>
                                 <h3>AI Assistant</h3>
                                 <span className="status">Online</span>

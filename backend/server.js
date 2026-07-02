@@ -144,8 +144,7 @@ function getLocalFallbackResponse(messages) {
     if (lastMsg.includes("certification") || lastMsg.includes("certificate")) {
         return "I am constantly learning and upgrading my skills through my MCA program and my AI/ML internship.";
     }
-    
-    return "Thanks for your message! I'm currently running in offline mode. Feel free to ask me specifically about Ritupurna's skills, education, experience, or contact info!";
+    return "I am specialized in answering questions about Ritupurna's professional portfolio, skills, experience, and projects. Please feel free to ask me anything related to her career!";
 }
 
 // Chat API
@@ -168,7 +167,7 @@ ROLE & BEHAVIOR:
 - You must analyze the above portfolio information clearly and give real, accurate answers.
 - If asked about "projects", explain that while her specific portfolio projects are still being updated, she has strong skills in Web Development and AI/ML.
 - Keep your answers concise, friendly, and highly professional. Use markdown for formatting. 
-- CRITICAL RULE: If a user asks a question completely unrelated to Ritupurna (like general coding help, recipes, or random facts), politely decline and guide them back to her portfolio. However, you MUST answer ANY question related to her skills, career, education, contact info, or projects.`;
+- CRITICAL RULE: If a user asks a question completely unrelated to Ritupurna (like general coding help, recipes, or random facts), YOU MUST NOT ANSWER IT. Instead, you must reply EXACTLY with: "I am specialized in answering questions about Ritupurna's professional portfolio, skills, experience, and projects. Please feel free to ask me anything related to her career!"`;
 
     const apiMessages = [
         { role: "system", content: systemPrompt },
