@@ -110,6 +110,55 @@ app.get("/api/messages", verifyToken, (req, res) => {
     });
 });
 
+// Chat API
+app.post("/api/chat", async (req, res) => {
+    const { messages, model } = req.body;
+
+    if (!messages || !Array.isArray(messages)) {
+        return res.status(400).json({ success: false, message: "Invalid messages array" });
+    }
+
+    const systemPrompt = `You are the AI assistant for Ritupurna Samal's portfolio website. 
+Ritupurna is a Web Developer & AI/ML Enthusiast. 
+She is currently pursuing a Master of Computer Applications (MCA) at GITA Autonomous College. 
+She holds a BCA from NC Autonomous College with an 8.87 CGPA. 
+Currently, she is a Junior Developer Intern (AI/ML) at Infophy Technology Pvt. Ltd. 
+Her skills include Java, C, Python, C++, HTML, and Database Management. 
+Contact her at samalritupurna201@gmail.com or 8144187710, or via LinkedIn. 
+Keep your answers concise, friendly, and professional. Use markdown for formatting.`;
+
+    const apiMessages = [
+        { role: "system", content: systemPrompt },
+        ...messages
+    ];
+
+    try {
+        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                model: model || "meta-llama/llama-3-8b-instruct:free",
+                messages: apiMessages
+            })
+        });
+
+        const data = await response.json();
+        
+        if (!response.ok) {
+            console.error("OpenRouter Error:", data);
+            return res.status(response.status).json({ success: false, message: data.error?.message || "AI Provider Error" });
+        }
+
+        res.json({ success: true, reply: data.choices[0].message.content });
+    } catch (err) {
+        console.error("Chat API Error:", err);
+        res.status(500).json({ success: false, message: "Failed to connect to AI provider" });
+    }
+});
+
 // Global error handler
 app.use((err, req, res, next) => {
     console.error("Global Error Handler caught:", err);
