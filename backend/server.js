@@ -126,7 +126,7 @@ function getLocalFallbackResponse(messages) {
         return "I am specialized in answering questions about Ritupurna's professional portfolio, skills, experience, and projects. Please feel free to ask me anything related to her career!";
     }
 
-    if (lastMsg.includes("who are you") || lastMsg.includes("about yourself") || lastMsg.includes("about ritupurna") || lastMsg === "tell me about yourself") {
+    if (lastMsg.includes("who are you") || lastMsg.includes("about yourself") || lastMsg.includes("about ritu") || lastMsg.includes("who is ritu") || lastMsg.includes("who is samal") || lastMsg === "tell me about yourself" || lastMsg === "ritu" || lastMsg === "ritupurna") {
         return "I am Ritupurna Samal, a Web Developer & AI/ML Enthusiast based in Bhubaneswar. I am currently pursuing my MCA and am passionate about software architecture and AI.";
     }
     if (lastMsg.includes("skill") || lastMsg.includes("technolog") || lastMsg.includes("know") || lastMsg.includes("language")) {
