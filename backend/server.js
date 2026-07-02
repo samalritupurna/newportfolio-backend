@@ -140,7 +140,7 @@ Keep your answers concise, friendly, and professional. Use markdown for formatti
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                model: model || "meta-llama/llama-3.1-8b-instruct:free",
+                model: model || "mistralai/mistral-7b-instruct:free",
                 messages: apiMessages
             })
         });
