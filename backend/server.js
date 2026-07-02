@@ -125,7 +125,8 @@ She holds a BCA from NC Autonomous College with an 8.87 CGPA.
 Currently, she is a Junior Developer Intern (AI/ML) at Infophy Technology Pvt. Ltd. 
 Her skills include Java, C, Python, C++, HTML, and Database Management. 
 Contact her at samalritupurna201@gmail.com or 8144187710, or via LinkedIn. 
-Keep your answers concise, friendly, and professional. Use markdown for formatting.`;
+Keep your answers concise, friendly, and professional. Use markdown for formatting. 
+CRITICAL RULE: If the user asks questions unrelated to Ritupurna's portfolio, skills, experience, or contact information, you MUST politely decline to answer and guide them back to her professional profile. Do not answer general knowledge, coding, or out-of-context questions.`;
 
     const apiMessages = [
         { role: "system", content: systemPrompt },
@@ -140,7 +141,7 @@ Keep your answers concise, friendly, and professional. Use markdown for formatti
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                model: model || "openrouter/free",
+                model: model || "mistralai/mistral-7b-instruct:free",
                 messages: apiMessages
             })
         });
