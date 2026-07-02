@@ -1,7 +1,7 @@
 const { useState, useEffect, useRef } = React;
 
 const MODELS = [
-    { id: "google/gemini-2.5-pro:free", name: "Gemini 2.5 Pro (Free)" },
+    { id: "google/gemini-2.5-flash:free", name: "Gemini 2.5 Flash (Free)" },
     { id: "google/gemma-2-9b-it:free", name: "Gemma 2 9B (Free)" },
     { id: "meta-llama/llama-3.1-8b-instruct:free", name: "Llama 3.1 8B (Free)" },
     { id: "openai/gpt-4o", name: "GPT-4o (Premium)" },

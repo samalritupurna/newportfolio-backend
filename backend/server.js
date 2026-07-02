@@ -152,7 +152,7 @@ ROLE & BEHAVIOR:
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                model: model || "google/gemini-2.5-pro:free",
+                model: model || "google/gemini-2.5-flash:free",
                 messages: apiMessages
             })
         });
