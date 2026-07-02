@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Ritupurna Samal</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .admin-container {
+            max-width: 900px;
+            margin: 4rem auto;
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+        }
+        
+        .login-form {
+            max-width: 400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .messages-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+        
+        .messages-table th, .messages-table td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid var(--secondary-color);
+        }
+        
+        .messages-table th {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        .messages-table tr:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .logout-btn {
+            background: none;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            float: right;
+            transition: var(--transition);
+        }
+        
+        .logout-btn:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <h1 class="logo">Ritupurna Samal <span style="color:var(--text-light); font-size:1.2rem;">| Admin</span></h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Back to Portfolio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container admin-container">
+            
+            <!-- LOGIN VIEW -->
+            <div id="login-view">
+                <h2 class="section-title">Admin Login</h2>
+                <form id="login-form" class="login-form">
+                    <div id="login-error" style="display: none; color: red; text-align: center;">Invalid credentials</div>
+                    <div class="form-group">
+                        <input type="text" id="username" placeholder="Username" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn">Login</button>
+                </form>
+            </div>
+
+            <!-- DASHBOARD VIEW -->
+            <div id="dashboard-view" style="display: none;">
+                <button class="logout-btn" id="logout-btn">Logout</button>
+                <h2>Inbox Messages</h2>
+                <p style="color:var(--text-light)">Messages submitted through your contact form.</p>
+                
+                <table class="messages-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Subject</th>
+                            <th>Message</th>
+                        </tr>
+                    </thead>
+                    <tbody id="messages-body">
+                        <!-- Messages populated here -->
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </main>
+
+    <script>
+        const loginView = document.getElementById('login-view');
+        const dashboardView = document.getElementById('dashboard-view');
+        const loginForm = document.getElementById('login-form');
+        const logoutBtn = document.getElementById('logout-btn');
+        const messagesBody = document.getElementById('messages-body');
+        
+        // Check if already logged in
+        const token = localStorage.getItem('adminToken');
+        if (token) {
+            showDashboard(token);
+        }
+
+        // Handle Login
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                const res = await fetch('https://newportfolio-backend-26pw.onrender.com/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await res.json();
+                if (data.success) {
+                    localStorage.setItem('adminToken', data.token);
+                    showDashboard(data.token);
+                } else {
+                    document.getElementById('login-error').style.display = 'block';
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Connection error');
+            }
+        });
+
+        // Handle Logout
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('adminToken');
+            dashboardView.style.display = 'none';
+            loginView.style.display = 'block';
+            loginForm.reset();
+        });
+
+        // Fetch and display messages
+        async function showDashboard(token) {
+            try {
+                const res = await fetch('https://newportfolio-backend-26pw.onrender.com/api/messages', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                const data = await res.json();
+                
+                if (data.success) {
+                    loginView.style.display = 'none';
+                    dashboardView.style.display = 'block';
+                    
+                    messagesBody.innerHTML = '';
+                    data.messages.forEach(msg => {
+                        const date = new Date(msg.created_at).toLocaleDateString();
+                        messagesBody.innerHTML += `
+                            <tr>
+                                <td>${date}</td>
+                                <td><strong>${msg.name}</strong></td>
+                                <td><a href="mailto:${msg.email}">${msg.email}</a></td>
+                                <td>${msg.subject || '-'}</td>
+                                <td>${msg.message}</td>
+                            </tr>
+                        `;
+                    });
+                } else {
+                    // Token likely invalid/expired
+                    localStorage.removeItem('adminToken');
+                    loginView.style.display = 'block';
+                    dashboardView.style.display = 'none';
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Failed to fetch messages');
+            }
+        }
+    </script>
+</body>
+</html>

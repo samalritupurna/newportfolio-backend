@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ritupurna Samal | Portfolio</title>
+    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- React and Babel CDNs -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Markdown and Syntax Highlighting -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body>
+    <!-- Premium Background Effects -->
+    <div class="bg-mesh">
+        <div class="bg-blob blob-1"></div>
+        <div class="bg-blob blob-2"></div>
+        <div class="bg-blob blob-3"></div>
+    </div>
+
+    <header>
+        <div class="container header-container">
+            <h1 class="logo">Ritupurna Samal</h1>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero">
+            <div class="container hero-container">
+                <div class="hero-image-wrapper">
+                    <img src="profile.jpg?v=4" alt="Ritupurna Samal" class="hero-img">
+                </div>
+                <div class="hero-content">
+                    <p class="greeting fade-up" style="animation-delay: 0.1s;">Hello, I'm</p>
+                    <h2 class="name fade-up" style="animation-delay: 0.2s;">Ritupurna Samal</h2>
+                    <h3 class="title fade-up" style="animation-delay: 0.3s;">Web Developer & AI/ML Enthusiast</h3>
+                    <p class="summary fade-up" style="animation-delay: 0.4s;">
+                        Motivated MCA graduate passionate about software development, AI, and machine learning. Eager to build innovative tech solutions and adapt to emerging technologies in a dynamic work environment.
+                    </p>
+                    <a href="resume.pdf" download class="btn fade-up" style="animation-delay: 0.5s;">Download Resume</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="section">
+            <div class="container">
+                <h2 class="section-title">Experience</h2>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Junior Developer Intern (AI/ML)</h3>
+                        <span class="date">Current</span>
+                    </div>
+                    <p class="company">Infophy Technology Pvt. Ltd. | Bhubaneswar</p>
+                    <ul class="duties">
+                        <li>Gaining hands-on, practical experience at a dynamic technology startup.</li>
+                        <li>Exploring and contributing to innovative solutions within the Artificial Intelligence and Machine Learning domain.</li>
+                        <li>Applying foundational programming concepts to assist in the development of intelligent software applications.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="section bg-light-pink">
+            <div class="container">
+                <h2 class="section-title">Education</h2>
+                <div class="grid-2">
+                    <div class="card pop-card">
+                        <div class="card-header">
+                            <h3>Master of Computer Applications (MCA)</h3>
+                            <span class="date">Currently Pursuing</span>
+                        </div>
+                        <p class="company">GITA Autonomous College | Bhubaneswar</p>
+                        <ul class="duties">
+                            <li>Focusing on advanced computing, software engineering methodologies, and modern application architecture.</li>
+                        </ul>
+                    </div>
+                    <div class="card pop-card">
+                        <div class="card-header">
+                            <h3>Bachelor of Computer Applications (BCA)</h3>
+                            <span class="date">2022 – 2025</span>
+                        </div>
+                        <p class="company">NC Autonomous College | Jajpur</p>
+                        <p class="cgpa"><strong>CGPA:</strong> 8.87</p>
+                        <ul class="duties">
+                            <li>Completed core modules in programming systems, database management, and computing mathematics.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section">
+            <div class="container">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category card pop-card">
+                        <h3>Programming Languages</h3>
+                        <p>Java, C, Python, C++ (Basic Knowledge)</p>
+                    </div>
+                    <div class="skill-category card pop-card">
+                        <h3>Frontend Development</h3>
+                        <p>HTML (Basic Knowledge)</p>
+                    </div>
+                    <div class="skill-category card pop-card">
+                        <h3>Backend Development</h3>
+                        <p>Database Management (Basic Knowledge)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section bg-light-pink">
+            <div class="container">
+                <h2 class="section-title">Contact Me</h2>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>Get In Touch</h3>
+                        <p>📍 Bhubaneswar, Odisha</p>
+                        <p>📞 8144187710</p>
+                        <p>✉️ <a href="mailto:samalritupurna201@gmail.com">samalritupurna201@gmail.com</a></p>
+                        <p>🔗 <a href="https://www.linkedin.com/in/ritupurna-samal-992b56397" target="_blank">LinkedIn</a></p>
+                    </div>
+                    <form class="contact-form" id="contact-form">
+                        <div id="success-message" style="display: none; background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center; font-weight: 600;">
+                            Your message was sent successfully!
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container text-center">
+            <p>&copy; 2023 Ritupurna Samal. All rights reserved. <a href="admin.html" style="color:var(--text-light); text-decoration:none; margin-left: 15px;">Admin Login</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Prevents page reload
+            
+            const inputs = this.querySelectorAll('input, textarea');
+            const name = inputs[0].value;
+            const email = inputs[1].value;
+            const subject = inputs[2].value;
+            const message = inputs[3].value;
+
+            try {
+                const response = await fetch('https://newportfolio-backend-26pw.onrender.com/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, subject, message })
+                });
+
+                if (response.ok) {
+                    // Show success message
+                    const successMsg = document.getElementById('success-message');
+                    successMsg.style.display = 'block';
+                    
+                    // Reset the form fields
+                    this.reset();
+                    
+                    // Hide the message after 4 seconds
+                    setTimeout(() => {
+                        successMsg.style.display = 'none';
+                    }, 4000);
+                } else {
+                    alert("Error submitting the form.");
+                }
+            } catch (err) {
+                console.error("Error:", err);
+                alert("Failed to connect to the backend server.");
+            }
+        });
+    </script>
+    
+    <!-- Chatbot Root -->
+    <div id="chatbot-root"></div>
+    <script type="text/babel" src="chatbot.jsx?v=4"></script>
+</body>
+</html>
