@@ -145,7 +145,6 @@ function Chatbot() {
                                 <div className="message-content">
                                     <div 
                                         className={`message-bubble ${msg.isError ? 'error' : ''}`}
-                                        style={msg.role === 'user' ? { color: '#111827' } : {}}
                                         dangerouslySetInnerHTML={{ __html: msg.role === 'assistant' ? marked.parse(msg.content) : msg.content }}
                                     />
                                     <div className="message-meta">
