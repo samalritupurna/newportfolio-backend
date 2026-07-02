@@ -117,6 +117,37 @@ app.get("/api/messages", verifyToken, (req, res) => {
     });
 });
 
+function getLocalFallbackResponse(messages) {
+    const lastMsg = messages[messages.length - 1].content.toLowerCase();
+    
+    if (lastMsg.includes("about") || lastMsg.includes("who are you")) {
+        return "I am Ritupurna Samal, a Web Developer & AI/ML Enthusiast based in Bhubaneswar. I am currently pursuing my MCA and am passionate about software architecture and AI.";
+    }
+    if (lastMsg.includes("skill") || lastMsg.includes("technolog") || lastMsg.includes("know")) {
+        return "My technical skills include Java, C, Python, C++, HTML, and Database Management. I'm actively expanding my knowledge in AI and Machine Learning.";
+    }
+    if (lastMsg.includes("project") || lastMsg.includes("built")) {
+        return "While my specific portfolio projects are currently being updated on this site, I have strong hands-on skills in Web Development and am actively contributing to real-world AI/ML solutions.";
+    }
+    if (lastMsg.includes("education") || lastMsg.includes("degree") || lastMsg.includes("college")) {
+        return "I am currently pursuing a Master of Computer Applications (MCA) at GITA Autonomous College. I previously completed my BCA at NC Autonomous College (2022-2025) with an 8.87 CGPA.";
+    }
+    if (lastMsg.includes("experience") || lastMsg.includes("work") || lastMsg.includes("intern")) {
+        return "I am currently a Junior Developer Intern (AI/ML) at Infophy Technology Pvt. Ltd., where I am gaining practical, hands-on experience in the tech industry.";
+    }
+    if (lastMsg.includes("contact") || lastMsg.includes("email") || lastMsg.includes("phone")) {
+        return "You can easily reach me via email at samalritupurna201@gmail.com, or give me a call at 8144187710. You can also connect with me on LinkedIn!";
+    }
+    if (lastMsg.includes("resume") || lastMsg.includes("cv")) {
+        return "You can download my full resume by clicking the 'Download Resume' button located right on the main page of my portfolio.";
+    }
+    if (lastMsg.includes("certification") || lastMsg.includes("certificate")) {
+        return "I am constantly learning and upgrading my skills through my MCA program and my AI/ML internship.";
+    }
+    
+    return "Thanks for your message! I'm currently running in offline mode. Feel free to ask me specifically about Ritupurna's skills, education, experience, or contact info!";
+}
+
 // Chat API
 app.post("/api/chat", async (req, res) => {
     const { messages, model } = req.body;
@@ -157,17 +188,22 @@ ROLE & BEHAVIOR:
             })
         });
 
+        if (!response.ok) {
+            throw new Error(`API Error: ${response.status}`);
+        }
+
         const data = await response.json();
         
-        if (!response.ok) {
-            console.error("OpenRouter Error:", data);
-            return res.status(response.status).json({ success: false, message: data.error?.message || "AI Provider Error" });
+        if (!data.choices || !data.choices[0]) {
+            throw new Error("Invalid API Response");
         }
 
         res.json({ success: true, reply: data.choices[0].message.content });
     } catch (err) {
-        console.error("Chat API Error:", err);
-        res.status(500).json({ success: false, message: "Failed to connect to AI provider" });
+        console.error("Chat API Error caught, using graceful local fallback:", err.message);
+        // Never return raw errors to the user. Instead, use the local knowledge base.
+        const fallbackReply = getLocalFallbackResponse(messages);
+        res.json({ success: true, reply: fallbackReply, fallback: true });
     }
 });
 
