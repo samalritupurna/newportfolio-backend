@@ -335,6 +335,115 @@ nav a:hover::after {
     box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
 }
 
+/* Glowing Resume Button */
+.btn-glow {
+    position: relative;
+    box-shadow: 0 0 20px var(--glow-color);
+    animation: glow-pulse 2s infinite;
+}
+
+@keyframes glow-pulse {
+    0% { box-shadow: 0 0 15px var(--glow-color); }
+    50% { box-shadow: 0 0 35px var(--accent-start); }
+    100% { box-shadow: 0 0 15px var(--glow-color); }
+}
+
+/* Bento Grid */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(180px, auto);
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.bento-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5rem;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.bento-large {
+    grid-column: span 2;
+}
+
+.bento-wide {
+    grid-column: span 2;
+}
+
+.glow-on-hover::after {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+.glow-on-hover:hover::after {
+    opacity: 1;
+}
+
+.bento-item h3 {
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+    color: var(--primary-text);
+}
+
+.skill-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.badge {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s;
+}
+
+.badge:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.badge-python { background: rgba(55, 118, 171, 0.2); border-color: #3776AB; }
+.badge-java { background: rgba(248, 152, 32, 0.2); border-color: #F89820; }
+.badge-c { background: rgba(0, 89, 156, 0.2); border-color: #00599C; }
+.badge-react { background: rgba(97, 218, 251, 0.2); border-color: #61DAFB; }
+.badge-html { background: rgba(227, 79, 38, 0.2); border-color: #E34F26; }
+.badge-node { background: rgba(51, 153, 51, 0.2); border-color: #339933; }
+.badge-mysql { background: rgba(68, 121, 161, 0.2); border-color: #4479A1; }
+
+.bento-desc {
+    color: var(--secondary-text);
+    font-size: 1.15rem;
+    max-width: 80%;
+}
+
+@media (max-width: 768px) {
+    .bento-grid {
+        grid-template-columns: 1fr;
+    }
+    .bento-large, .bento-wide {
+        grid-column: span 1;
+    }
+}
+
 /* General Sections */
 .section {
     padding: 8rem 0;
